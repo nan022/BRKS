@@ -63,8 +63,8 @@
 										</div>
 										<div class="form-group">
 											<label for="detail">Detail</label>
-											<input name="detail" type="file"
-												class="form-control-file" id="detail" required>
+											<input name="detail" type="text"
+												class="form-control" id="detail" readonly>
 											<?= form_error('detail', '<small class="text-danger p1-3">', '</small>'); ?>
 										</div>
 									</div>
@@ -85,42 +85,44 @@
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js"
 		integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-	<script src="https://code.jQuery.com/jQuery-1.10.2.js"> </script>
 	<script>
 		$(document).ready(function () {
 
-			var e = document.getElementById("reseller");
-			var id = e.options[e.selectedIndex].value;
-			
-			var oke = document.getElementById("product");
-			var id_pro = oke.options[oke.selectedIndex].value;
+			// var e = document.getElementById("reseller");
+			// var id = e.options[e.selectedIndex].value;
 
-			// var f = document.getElementById("product");
-			// var value = f.value;
-			// var text = f.options[f.selectedIndex].text;
-			// alert(text);
+			// var oke = document.getElementById("product");
+			// var id_pro = oke.options[oke.selectedIndex].value;
 
-			$('#reseller').change(function () {
-			$.ajax({
-				type: "POST",
-				url: "<?= base_url('OrderRecord/getProductAdd') ?>",
-				data: {
-					id: id,
-				},
-				dataType: "JSON",
-				success: function (response) {
-					$('#product').html(response);
-				}
-			});
-			});
+			// $('#reseller').change(function () {
+			// $.ajax({
+			// 	type: "POST",
+			// 	url: "<?= base_url('OrderRecord/getProductAdd') ?>",
+			// 	data: {
+			// 		id: id,
+			// 	},
+			// 	dataType: "JSON",
+			// 	success: function (response) {
+			// 		$('#product').html(response);
+			// 	}
+			// });
+			// });
 
 			$('#product').change(function () {
-				var id = $(this).val();
+				prodcutId = $(this).val();
+				if(prodcutId == null) {
+					var id = "<?= $byId['id_pro']; ?>";
+				} else{
+					var id = prodcutId
+				}
+				var version = "<?= $byId['id_ver']; ?>";
+				// alert(id);
 				$.ajax({
 					type: "POST",
 					url: "<?= base_url('orderrecord/getversion') ?>",
 					data: {
-						id: id
+						id: id,
+						version: version
 					},
 					dataType: "JSON",
 					success: function (response) {
@@ -129,20 +131,23 @@
 				});
 			});
 
-			// $('#reseller').change(function () {
-			// 	var id = $(this).val();
-			// 	$.ajax({
-			// 		type: "POST",
-			// 		url: "<?= base_url('OrderRecord/getProduct') ?>",
-			// 		data: {
-			// 			id: id
-			// 		},
-			// 		dataType: "JSON",
-			// 		success: function (response) {
-			// 			$('#product').html(response);
-			// 		}
-			// 	});
-			// });
+			$('#reseller').change(function () {
+				var id = $(this).val();
+				var product = "<?= $byId['id_pro']; ?>";
+				// alert(product);
+				$.ajax({
+					type: "POST",
+					url: "<?= base_url('OrderRecord/getProduct') ?>",
+					data: {
+						id: id,
+						product: product
+					},
+					dataType: "JSON",
+					success: function (response) {
+						$('#product').html(response);
+					}
+				});
+			});
 
 			var id_ord = "<?= $byId['id_ord'] ?>"
 			$.ajax({
@@ -163,6 +168,6 @@
 				}
 			});
 
-		});
+			});
 
 	</script>

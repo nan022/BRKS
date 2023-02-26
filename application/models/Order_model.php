@@ -26,11 +26,11 @@ class Order_model extends CI_Model
         $query = $this->db->get();
         return $query->row_array();
     }
-    public function update($where, $data)
-    {
-        $this->db->update($this->table, $data, $where);
-        return $this->db->affected_rows();
-    }
+    // public function update($where, $data)
+    // {
+    //     $this->db->update($this->table, $data, $where);
+    //     return $this->db->affected_rows();
+    // }
     public function insert($data)
     {
         $this->db->insert($this->table, $data);
@@ -61,5 +61,11 @@ class Order_model extends CI_Model
     public function getByIdOrderRecord($id)
     {
         return $this->db->get_where('order_record1',['id_ord'=> $id])->row_array();
+    }
+
+    public function update($where, $input)
+    {
+        $this->db->update('order_record1', $input, $where);
+        return $this->db->affected_rows();
     }
 }
