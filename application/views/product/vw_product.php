@@ -34,10 +34,10 @@
                                                 <td><?= $i; ?>.</td>
                                                 <td><?= $pd['product_desc']; ?></td>										
                                                 <td><?= $pd['nama']; ?></td>										
-												<td>
-													<a href="<?= base_url('Product/edit/') . $pd['id']; ?>" class="badge badge-warning">Edit</a>
-													<a href="<?= base_url('Product/hapus/') . $pd['id']; ?>" class="badge badge-danger">Hapus</a>
-												</td>
+								<td>
+								<a href="<?= base_url('Product/edit/') . $pd['id']; ?>" class="badge badge-warning">Edit</a>
+								<a href="<?= base_url('Product/hapus/') . $pd['id']; ?>" class="badge badge-danger">Hapus</a>
+								</td>
                                             </tr>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>

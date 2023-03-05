@@ -11,24 +11,19 @@ class Version_model extends CI_Model
     }
     public function get()
     {
-        // $this->db->select('*');
-        // $this->db->from('product');
-        // $this->db->join('product', 'product.id_res = product.id');
-        // $query = $this->db->get();
-        // return $query->result_array();
-        $this->db->from('product');
+        $this->db->from('tbversion');
         $query = $this->db->get();
         return $query->result_array();
     }
-    public function getById($id)
-    {
-        $this->db->select('m.*,u.nama as product');
-        $this->db->from('product m');
-        $this->db->join('product u', 'm.id = u.id');
-        $this->db->where('m.id',$id);
-        $query = $this->db->get();
-        return $query->row_array();
-    }
+    // public function getById($id)
+    // {
+    //     $this->db->select('m.*,u.nama as product');
+    //     $this->db->from('product m');
+    //     $this->db->join('product u', 'm.id = u.id');
+    //     $this->db->where('m.id',$id);
+    //     $query = $this->db->get();
+    //     return $query->row_array();
+    // }
     public function update($where, $data)
     {
     $this->db->update($this->table, $data, $where);
@@ -59,6 +54,19 @@ class Version_model extends CI_Model
         $this->db->select('*');
         $this->db->from('reseller');
         $this->db->join('product', 'product.id_res = reseller.id');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getById($id)
+    {
+        $this->db->from($this->table);;
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    public function getDataProduct()
+    {
+        $this->db->from('product');
         $query = $this->db->get();
         return $query->result_array();
     }

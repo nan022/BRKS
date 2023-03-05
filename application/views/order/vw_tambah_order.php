@@ -47,7 +47,7 @@
 												</div>
 												<div class="form-group">
 													<label for="detail">Detail</label>
-													<input name="detail" type="file" class="form-control-file" id="detail">
+													<input name="detail" type="file" class="form-control-file" id="detail" onchange="return fileValidation()">
 													<?= form_error('detail', '<small class="text-danger p1-3">', '</small>'); ?>
 												</div>
 											</div>
@@ -65,7 +65,7 @@
 				</div>
 			</div>
 			<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-			<script>
+			<script type="text/javascript">
 				$(document).ready(function() {
 					$('#id_res').change(function() {
 					var id = $(this).val();
@@ -112,4 +112,29 @@
 					});
 					});
 				});
+
+					// var uploadField = document.getElementById('detail');
+					// uploadField.onchange = function(){
+					// 	if(this.files[0].size > 800000){
+					// 	swal("Oops!", "Maksimal 800 kb!", {
+					// 	icon : "error",
+					// 	});
+					// 		this.value = "";
+					// 	};
+					// };
+
+					// Funtion type file
+					function fileValidation(){
+						var fileInput = document.getElementById('detail');
+						var filePath = fileInput.value;
+						var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+						var size = parseFloat(fileInput.files[0].size / (800000)).toFixed(2);
+						if(size > 2 || !allowedExtensions.exec(filePath)){
+							swal("Oops!", "Upload file having extensions .jpeg/.jpg/.png and max. 800kb !", {
+							icon : "error",
+							});
+							fileInput.value = '';
+							return false;
+						}
+					}
     			</script>

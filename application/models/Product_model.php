@@ -16,7 +16,7 @@ class Product_model extends CI_Model
         // $this->db->join('product', 'product.id_res = reseller.id');
         // $query = $this->db->get();
         // return $query->result_array();
-        $this->db->from('reseller');
+        $this->db->from('product');
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -24,7 +24,7 @@ class Product_model extends CI_Model
     {
         $this->db->select('m.*,u.nama as reseller');
         $this->db->from('product m');
-        $this->db->join('reseller u', 'm.id = u.id');
+        $this->db->join('reseller u', 'm.id_res = u.id');
         $this->db->where('m.id',$id);
         $query = $this->db->get();
         return $query->row_array();
@@ -47,9 +47,22 @@ class Product_model extends CI_Model
     }
     public function getData()
     {
-        $this->db->select('*');
+        $this->db->select('product.*, reseller.nama');
+        $this->db->from('product');
+        $this->db->join('reseller', 'product.id_res = reseller.id');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function get_by_id($id)
+    {
+        $this->db->from($this->table);;
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    public function getDataReseller()
+    {
         $this->db->from('reseller');
-        $this->db->join('product', 'product.id_res = reseller.id');
         $query = $this->db->get();
         return $query->result_array();
     }

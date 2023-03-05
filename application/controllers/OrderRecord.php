@@ -112,7 +112,8 @@ class OrderRecord extends CI_Controller
 
             $upload_image = $_FILES['detail']['name'];
             if ($upload_image) {
-                $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+                $config['allowed_types'] = 'jpg|jpeg|png';
+                // $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
                 $config['max_size'] = '2048';
                 $config['upload_path'] = './assets/img/berkas/';
                 $this->load->library('upload', $config);
